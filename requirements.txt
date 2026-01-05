@@ -1,0 +1,16 @@
+gymnasium==1.2.3
+highway-env==1.10.2
+stable-baselines3==2.7.1
+
+# SB3 dependency (leave unpinned so pip picks the right wheel for your OS/CPU)
+torch
+
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+
+moviepy>=1.0.3
+imageio>=2.34
+imageio-ffmpeg>=0.5.1
+tqdm>=4.66
+tensorboard>=2.15
