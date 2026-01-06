@@ -5,17 +5,16 @@ from pathlib import Path
 from typing import Callable, Optional, Tuple
 
 import gymnasium as gym
-import highway_env  # noqa: F401  # ensure envs are registered
 import imageio
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from stable_baselines3 import PPO
 
 try:
-    # optional: if you have your wrapper, keep it for consistency
-    from src.envs.reward_wrapper import RewardWrapper  # type: ignore
+    
+    from src.envs.reward_wrapper import RewardWrapper 
 except Exception:
-    RewardWrapper = None  # type: ignore
+    RewardWrapper = None  
 
 
 def _title_frame(text: str, size: Tuple[int, int]) -> np.ndarray:
@@ -23,13 +22,13 @@ def _title_frame(text: str, size: Tuple[int, int]) -> np.ndarray:
     img = Image.new("RGB", (w, h), (15, 15, 18))
     draw = ImageDraw.Draw(img)
 
-    # best-effort font
+    
     try:
         font = ImageFont.truetype("Arial.ttf", size=max(18, h // 14))
     except Exception:
         font = ImageFont.load_default()
 
-    # center text
+    
     bbox = draw.textbbox((0, 0), text, font=font)
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text(((w - tw) // 2, (h - th) // 2), text, font=font, fill=(240, 240, 245))
@@ -61,7 +60,7 @@ def _rollout_and_write(
         raise RuntimeError("env.render() returned None. Try a different env_id or check render_mode.")
     h, w = first.shape[0], first.shape[1]
 
-    # title card
+    
     title = _title_frame(stage_name, (w, h))
     for _ in range(int(fps * title_seconds)):
         writer.append_data(title)
@@ -112,7 +111,7 @@ def main() -> None:
     mp4_path = out_dir / "evolution.mp4"
     gif_path = out_dir / "evolution.gif"
 
-    # Load models
+    
     mid_model = PPO.load(args.mid_model, device="cpu")
     final_model = PPO.load(args.final_model, device="cpu")
 
@@ -124,7 +123,7 @@ def main() -> None:
         a, _ = final_model.predict(obs, deterministic=True)
         return int(a)
 
-    # Write MP4 by streaming frames (no RecordVideo)
+    
     with imageio.get_writer(str(mp4_path), fps=args.fps) as writer:
         _rollout_and_write(
             writer,
@@ -157,10 +156,10 @@ def main() -> None:
     print(f"Wrote: {mp4_path}")
 
     if args.make_gif:
-        # Create GIF from MP4 (downsample for size)
+        
         reader = imageio.get_reader(str(mp4_path))
         frames = []
-        step = 2  # take every 2nd frame to reduce size
+        step = 2  
         for i, frame in enumerate(reader):
             if i % step == 0:
                 frames.append(frame)

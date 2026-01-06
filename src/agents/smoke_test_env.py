@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import gymnasium as gym
-import highway_env  # noqa: F401  (register envs)
 
 from src.config import BaseConfig
 
