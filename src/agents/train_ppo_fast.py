@@ -44,7 +44,7 @@ class CustomRewardWrapper(gym.Wrapper):
         crashed = bool(info.get("crashed", False))
         collision = 1.0 if crashed else 0.0
 
-        speed = float(getattr(self.env.unwrapped.vehicle, "speed", 0.0))
+        speed = float(getattr(self.env.unwrapped.vehicle, "speed", 0.0))  # type: ignore[attr-defined]
         speed_norm = (speed - self.v_min) / max(1e-6, (self.v_max - self.v_min))
         speed_norm = float(np.clip(speed_norm, 0.0, 1.0))
 
@@ -68,7 +68,7 @@ class CustomRewardWrapper(gym.Wrapper):
 
     def _get_lane_index(self) -> int | None:
         try:
-            li = getattr(self.env.unwrapped.vehicle, "lane_index", None)
+            li = getattr(self.env.unwrapped.vehicle, "lane_index", None)  # type: ignore[attr-defined]
             if li is None:
                 return None
             return int(li[2]) if len(li) >= 3 else int(li[1])

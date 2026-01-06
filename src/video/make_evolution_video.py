@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 from __future__ import annotations
 
 import argparse
@@ -12,9 +13,9 @@ from stable_baselines3 import PPO
 
 try:
     
-    from src.envs.reward_wrapper import RewardWrapper 
+    from src.envs.reward_wrapper import CustomRewardWrapper 
 except Exception:
-    RewardWrapper = None  
+    CustomRewardWrapper = None  
 
 
 def _title_frame(text: str, size: Tuple[int, int]) -> np.ndarray:
@@ -37,8 +38,8 @@ def _title_frame(text: str, size: Tuple[int, int]) -> np.ndarray:
 
 def _make_env(env_id: str, seed: int) -> gym.Env:
     env = gym.make(env_id, render_mode="rgb_array")
-    if RewardWrapper is not None:
-        env = RewardWrapper(env)
+    if CustomRewardWrapper is not None:
+        env = CustomRewardWrapper(env)
     env.reset(seed=seed)
     return env
 
