@@ -219,7 +219,7 @@ src/
 Add your own screenshots here (requested for submission):
 
 - **Training completed (terminal output):**  
-  _[PLACEHOLDER — add screenshot]_
+<img width="2158" height="1096" alt="image" src="https://github.com/user-attachments/assets/58222197-635e-46a4-bac4-94a813b0b615" />
 
 - **Reward curve produced:**  
   _[PLACEHOLDER — add screenshot]_
@@ -241,3 +241,4 @@ Add your own screenshots here (requested for submission):
 - `highway-env` for the traffic simulation environment
 - Gymnasium for the RL interface
 - Stable-Baselines3 for PPO implementation
+
