@@ -64,10 +64,13 @@ PYTHONPATH=. python -m src.train
 
 ### Make Evolution Video (3 stages)
 ```bash
-python -m src.video.make_evolution_video --steps 1200 --make-gif --out-dir outputs/videos
-mkdir -p assets
-cp -f outputs/videos/evolution.mp4 assets/evolution.mp4
-cp -f outputs/videos/evolution.gif assets/evolution.gif
+python -m src.video.make_evolution_video \
+  --env-id highway-v0 \
+  --mid-model outputs/models/ppo_half.zip \
+  --final-model outputs/models/ppo_final.zip \
+  --steps 1200 \
+  --make-gif \
+  --out-dir outputs/videos
 ```
 
 ### Plot Reward Curve
@@ -75,4 +78,5 @@ cp -f outputs/videos/evolution.gif assets/evolution.gif
 python -m src.plots.plot_reward_curve --log-dir outputs/logs --out outputs/plots/reward_vs_episodes.png
 cp -f outputs/plots/reward_vs_episodes.png assets/reward_vs_episodes.png
 ```
+
 
