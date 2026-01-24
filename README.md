@@ -61,9 +61,12 @@ We keep two training variants:
 
 Per-step reward:
 
-\[
-R_t = w_{speed}\cdot \frac{v_t}{30} + w_{crash}\cdot \mathbf{1}[\text{crash}_t]\cdot(-1) + w_{alive}\cdot 1
-\]
+R_t = w_speed * (v_t / 30) 
+      - w_crash * I[crash_t] 
+      + w_alive
+
+
+
 
 Default weights (from code):
 - \(w_{speed}=1.0\)
@@ -234,6 +237,7 @@ src/
 - `highway-env` for the traffic simulation environment
 - Gymnasium for the RL interface
 - Stable-Baselines3 for PPO implementation
+
 
 
 
